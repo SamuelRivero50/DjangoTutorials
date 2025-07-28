@@ -1,0 +1,29 @@
+{% extends 'pages/base.html' %}
+
+{% block title %}Product Created - Online Store{% endblock %}
+
+{% block header_title %}Success{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Success!</h4>
+                <p class="mb-0">Product created successfully.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">What would you like to do next?</h5>
+                    <div class="mt-3">
+                        <a href="{% url 'form' %}" class="btn btn-primary me-2">Create Another Product</a>
+                        <a href="{% url 'index' %}" class="btn btn-secondary me-2">View All Products</a>
+                        <a href="{% url 'home' %}" class="btn btn-outline-primary">Go to Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

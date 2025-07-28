@@ -88,6 +88,12 @@ class ProductShowView(View):
 class ProductForm(forms.Form):
     name = forms.CharField(required=True)
     price = forms.FloatField(required=True)
+    
+    def clean_price(self):
+        price = self.cleaned_data['price']
+        if price <= 0:
+            raise forms.ValidationError("Price must be greater than zero.")
+        return price
 
 class ProductCreateView(View):
     template_name = 'products/create.html'
@@ -102,9 +108,23 @@ class ProductCreateView(View):
     def post(self, request):
         form = ProductForm(request.POST)
         if form.is_valid():
-            return redirect(form)
+            # In a real application, you would save the product to database here
+            # For now, we just redirect to success page
+            return HttpResponseRedirect(reverse('product_success'))
         else:
             viewData = {}
             viewData["title"] = "Create product"
             viewData["form"] = form
             return render(request, self.template_name, viewData)
+
+
+class ProductSuccessView(TemplateView):
+    template_name = 'products/success.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            "title": "Product Created - Online Store",
+            "subtitle": "Success"
+        })
+        return context
