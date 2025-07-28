@@ -1,0 +1,75 @@
+{% extends 'pages/base.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block header_title %}{{subtitle}}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Contáctanos</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="text-primary">Información de Contacto</h5>
+                            <div class="contact-info">
+                                <div class="mb-3">
+                                    <strong>Empresa:</strong><br>
+                                    {{company}}
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <strong>Email:</strong><br>
+                                    <a href="mailto:{{email}}" class="text-decoration-none">{{email}}</a>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <strong>Teléfono:</strong><br>
+                                    <a href="tel:{{phone}}" class="text-decoration-none">{{phone}}</a>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <strong>Dirección:</strong><br>
+                                    {{address}}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h5 class="text-primary">Horarios de Atención</h5>
+                            <div class="business-hours">
+                                <div class="mb-2">
+                                    <strong>Lunes a Viernes:</strong> 8:00 AM - 6:00 PM
+                                </div>
+                                <div class="mb-2">
+                                    <strong>Sábados:</strong> 9:00 AM - 5:00 PM
+                                </div>
+                                <div class="mb-2">
+                                    <strong>Domingos:</strong> Cerrado
+                                </div>
+                            </div>
+                            
+                            <h5 class="text-primary mt-4">Síguenos</h5>
+                            <div class="social-media">
+                                <div class="mb-2">
+                                    <strong>Instagram:</strong> @tiendaonlinecol
+                                </div>
+                                <div class="mb-2">
+                                    <strong>Facebook:</strong> Tienda Online Colombia
+                                </div>
+                                <div class="mb-2">
+                                    <strong>WhatsApp:</strong> +57 300 123 4567
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -23,6 +23,22 @@ class AboutPageView(TemplateView):
         })
         return context
 
+
+class ContactPageView(TemplateView):
+    template_name = 'pages/contact.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            "title": "Contact us - Online Store",
+            "subtitle": "Contact Information",
+            "email": "contacto@tiendaonline.com.co",
+            "address": "Carrera 49 #7 Sur-50, El Poblado, Medellín, Antioquia, Colombia",
+            "phone": "+57 (4) 261-9500",
+            "company": "Tienda Online Colombia S.A.S"
+        })
+        return context
+
 class Product:
     products = [
         {"id": "1", "name": "TV", "description": "Best TV"},
