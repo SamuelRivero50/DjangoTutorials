@@ -1,5 +1,10 @@
-{% extends 'pages/base.html' %} {% block title %} {{title}} {% endblock %} {%
-block header_title %} {{subtitle}} {% endblock %} {% block content %}
+{% extends 'pages/base.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block header_title %}{{subtitle}}{% endblock %}
+
+{% block content %}
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
@@ -10,8 +15,18 @@ block header_title %} {{subtitle}} {% endblock %} {% block content %}
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title">{{product.name}}</h5>
+        {% if product.price > 100 %}
+          <h5 class="card-title" style="color: red;">{{product.name}}</h5>
+        {% else %}
+          <h5 class="card-title">{{product.name}}</h5>
+        {% endif %}
         <p class="card-text">{{product.description}}</p>
+        <p class="card-text">
+          <strong>Price: ${{product.price}}</strong>
+        </p>
+        <p class="card-text">
+          <small class="text-muted">Product ID: {{product.id}}</small>
+        </p>
       </div>
     </div>
   </div>

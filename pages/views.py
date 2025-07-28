@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import TemplateView
 from django.views import View
 from django import forms
+from django.urls import reverse
 
 # Create your views here.
 def homePageView(request): 
@@ -41,10 +42,10 @@ class ContactPageView(TemplateView):
 
 class Product:
     products = [
-        {"id": "1", "name": "TV", "description": "Best TV"},
-        {"id": "2", "name": "iPhone", "description": "Best iPhone"},
-        {"id": "3", "name": "Chromecast", "description": "Best Chromecast"},
-        {"id": "4", "name": "Glasses", "description": "Best Glasses"}
+        {"id": "1", "name": "TV", "description": "Best TV", "price": 599.99},
+        {"id": "2", "name": "iPhone", "description": "Best iPhone", "price": 899.99},
+        {"id": "3", "name": "Chromecast", "description": "Best Chromecast", "price": 35.99},
+        {"id": "4", "name": "Glasses", "description": "Best Glasses", "price": 129.99}
     ]
 
 
@@ -63,12 +64,26 @@ class ProductShowView(View):
     template_name = 'products/show.html'
     
     def get(self, request, id):
-        viewData = {}
-        product = Product.products[int(id) - 1]
-        viewData["title"] = product["name"] + " - Online Store"
-        viewData["subtitle"] = product["name"] + " - Product information"
-        viewData["product"] = product
-        return render(request, self.template_name, viewData)
+        try:
+            # Check if id is a valid integer
+            product_id = int(id)
+            
+            # Check if the product exists (valid range: 1 to len(products))
+            if product_id < 1 or product_id > len(Product.products):
+                return HttpResponseRedirect(reverse('home'))
+            
+            # Get the product (subtract 1 because list is 0-indexed but IDs start at 1)
+            product = Product.products[product_id - 1]
+            
+            viewData = {}
+            viewData["title"] = product["name"] + " - Online Store"
+            viewData["subtitle"] = product["name"] + " - Product information"
+            viewData["product"] = product
+            return render(request, self.template_name, viewData)
+            
+        except (ValueError, IndexError):
+            # If id is not a valid integer or any other error occurs, redirect to home
+            return HttpResponseRedirect(reverse('home'))
 
 class ProductForm(forms.Form):
     name = forms.CharField(required=True)
