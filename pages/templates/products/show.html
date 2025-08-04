@@ -31,6 +31,9 @@
         {% endif %}
         <p class="card-text">
           <small class="text-muted">Product ID: {{product.id}}</small>
+        {% for comment in product.comment_set.all%}
+        - {{comment.description}}<br/>
+        {% endfor %}
         </p>
       </div>
     </div>
