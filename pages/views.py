@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.core.exceptions import ValidationError
 from .models import Product
 
+
 # Create your views here.
 def homePageView(request): 
     return HttpResponse('Hello World!') 
@@ -88,14 +89,15 @@ class ProductListView(ListView):
         context['subtitle'] = 'List of products'
         return context
 
-class ProductForm(forms.Form):
-    name = forms.CharField(required=True)
-    price = forms.FloatField(required=True)
+class ProductForm(forms.ModelForm):
+    class Meta: 
+        model = Product
+        fields = ['name', 'price']
     
     def clean_price(self):
         price = self.cleaned_data['price']
         if price <= 0:
-            raise forms.ValidationError("Price must be greater than zero.")
+            raise ValidationError("Price must be greater than zero.")
         return price
 
 class ProductCreateView(View):
@@ -113,7 +115,8 @@ class ProductCreateView(View):
         if form.is_valid():
             # In a real application, you would save the product to database here
             # For now, we just redirect to success page
-            return HttpResponseRedirect(reverse('product_success'))
+            form.save()
+            return redirect('product_success')
         else:
             viewData = {}
             viewData["title"] = "Create product"
