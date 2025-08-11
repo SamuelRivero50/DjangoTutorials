@@ -6,5 +6,5 @@ class PagesConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'pages'
 
-     def ready(self): 
+    def ready(self): 
         ImageStorageClass = import_string(settings.IMAGE_STORAGE_CLASS) 
